@@ -1,7 +1,8 @@
 "use client";
 import axios from "axios";
-import { useRouter } from "next/compat/router";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import userStore, { UserState } from "../store/userStore";
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -11,6 +12,7 @@ export const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLogin, setIsLogin] = useState(false);
+  const setUser = userStore((state: UserState) => state.setUser);
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -18,7 +20,11 @@ export const LoginForm = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    isLogin ? await login() : await signUp();
+    if (isLogin) {
+      await login();
+    } else {
+      await signUp();
+    }
   };
 
   const signUp = async () => {
@@ -29,6 +35,7 @@ export const LoginForm = () => {
         { headers: { "Content-Type": "application/json" } }
       );
       console.log("Signup successful");
+      setUser({ username, email, password });
       clearData();
     } catch (error) {
       handleError(error, "Account creation failed.");
@@ -43,6 +50,9 @@ export const LoginForm = () => {
 
       if (res.data.exists) {
         if (password === res.data.user.password) {
+          setUser(res.data.user);
+          console.log("Signin successful");
+
           clearData();
         } else {
           setError("Incorrect password. Please try again.");
@@ -60,11 +70,11 @@ export const LoginForm = () => {
     setEmail("");
     setPassword("");
     setError("");
-    setIsLogin(false);
     if (router) {
       router.push("/home");
       console.log(router, "ghjkl;");
     }
+    setIsLogin(false);
   };
 
   const handleError = (error: unknown, defaultMessage: string) => {
