@@ -4,8 +4,9 @@ import { Button } from "./Button";
 import { Profile } from "./Profile";
 
 const navLinks: LinkProps[] = [
-  // { name: "Home", href: "/home" },
-  // { name: "Login", href: "/login" },
+  { name: "Cars", href: "/cars" },
+  { name: "Books", href: "/books" },
+  { name: "Countries", href: "/countries" },
 ];
 
 const Navbar: React.FC = () => {
