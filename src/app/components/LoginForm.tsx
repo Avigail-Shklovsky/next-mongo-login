@@ -88,7 +88,7 @@ export const LoginForm = () => {
 
   return (
     <div className="bg-slate-300 space-y-12 w-full h-[400px] text-black p-8">
-      <div className="flex justify-center items-center space-x-4 mb-6">
+      <div className="flex justify-center  space-x-4 mb-6">
         <button
           onClick={toggleForm}
           className={`px-6 py-2 text-xl font-semibold ${

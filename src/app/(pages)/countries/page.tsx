@@ -7,17 +7,14 @@ const page = () => {
     <div className="grid grid-cols-2 min-h-screen">
       <div className="flex justify-center items-center">
         <ItemsInput
+          kind={"add"}
           type={"Country"}
           prop1={"name"}
           prop2={"capitalCity"}
         ></ItemsInput>
       </div>
       <div className="flex justify-center items-center">
-        <ItemsList
-          type="Country"
-          prop1="name"
-          prop2="capitalCity"
-        />
+        <ItemsList type="Country" prop1="name" prop2="capitalCity" />
       </div>
     </div>
   );
